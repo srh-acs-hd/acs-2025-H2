@@ -92,7 +92,7 @@ Your webserver is running locally with:
 - Port: 3000
 
 You can open your app now via:  
-[http:localhost:3000](http:localhost:3000)
+[http:localhost:3000](http:localhost:3000)  
 
 
 
