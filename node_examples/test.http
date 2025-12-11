@@ -1,0 +1,10 @@
+### Get Root page
+GET http://localhost:3000/
+
+### Greet User
+POST http://localhost:3000/greet
+Content-Type: application/json
+
+{
+    "name": "Alice"
+}

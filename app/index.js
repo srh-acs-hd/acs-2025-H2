@@ -7,23 +7,16 @@ app.use(express.json());
 // define the port
 const port = process.env.PORT || 3000
 
-
 // define a route for an http request 
 app.get('/', (req, res) => {
   // define the html text
   let html = `
     <html>
-    <h1>Hello ACS Course!</h1>
-    <p>Congratulations your Express Web Server is running</p>
+    <h1>Default APP</h1>
     </html>
   `
   // send the html as response
   res.send(html)
-})
-
-app.post('/greet', (req, res) => {
-  const name = req.body.name || 'Guest'
-  res.send(`Hello ${name}, welcome to our server!`)
 })
 
 // start the server
