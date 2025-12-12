@@ -1,0 +1,40 @@
+# local server
+@server = http://localhost:3000
+# productive instance
+# @server = xyz
+
+### translate to english
+POST {{server}}/api/de2en
+Content-Type: application/json
+
+  {
+    "source": "Wie wird das Wetter Morgen abend?"
+  }
+
+
+### translate to german
+POST {{server}}/api/en2de
+Content-Type: application/json
+
+  {
+    "source": "Good afternoon. This text will be translated to German."
+  }
+
+
+### get google trends
+GET {{server}}/api/google-trends
+
+### log an info message
+GET {{server}}/test/loginfo
+
+
+### log an info message
+GET {{server}}/test/logerror
+
+### translate to german
+POST {{server}}/api/gemini
+Content-Type: application/json
+
+  {
+    "prompt": "Please tell a joke about a professor"
+  }

@@ -21,10 +21,41 @@ app.get('/', (req, res) => {
   res.send(html)
 })
 
+app.get('/hello', (req, res) => {
+  res.send('<h1>Hu hu</h1>')
+})
+
+
 app.post('/greet', (req, res) => {
   const name = req.body.name || 'Guest'
   res.send(`Hello ${name}, welcome to our server!`)
 })
+
+app.get('/persons', (req, res) => {
+  console.log('GET all persons');
+  res.send('Retrieve all persons');
+});
+
+app.get('/persons/:id', (req, res) => {
+  console.log(`GET person with id: ${req.params.id}`);
+  res.send(`Retrieve person with id: ${req.params.id}`);
+});
+
+app.post('/persons', (req, res) => {
+  console.log('POST new person:', req.body);
+  res.send('Create a new person');
+});
+
+app.put('/persons/:id', (req, res) => {
+  console.log(`PUT update person with id: ${req.params.id}`, req.body);
+  res.send(`Update person with id: ${req.params.id}`);
+});
+
+app.delete('/persons/:id', (req, res) => {
+  console.log(`DELETE person with id: ${req.params.id}`);
+  res.send(`Delete person with id: ${req.params.id}`);
+});
+
 
 // start the server
 app.listen(port, () => {

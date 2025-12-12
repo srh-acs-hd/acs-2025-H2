@@ -7,9 +7,14 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Paul Tanzer",
   "license": "ISC",
   "dependencies": {
-    "express": "^5.2.1"
+    "@google-cloud/bigquery": "^6.2.0",
+    "@google-cloud/logging-winston": "^6.0.0",
+    "@google-cloud/translate": "^9.3.0",
+    "@google-cloud/vertexai": "^1.1.0",
+    "@google/generative-ai": "^0.7.1",
+    "express": "^4.18.2"
   }
 }

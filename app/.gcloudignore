@@ -12,9 +12,8 @@
 # below:
 .git
 .gitignore
-readme.md
-test-api.http
-example.http
 
 # Node.js dependencies:
 node_modules/
+
+vue-app

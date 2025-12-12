@@ -1,10 +1,36 @@
-### Get Root page
+### root page
 GET http://localhost:3000/
 
-### Greet User
-POST http://localhost:3000/greet
+### greet
+POST https://nodeexamples-dot-pt-srh-dev.ey.r.appspot.com//greet
 Content-Type: application/json
 
 {
-    "name": "Alice"
+    "name": "Bob"
 }
+
+
+### List All Persons
+GET http://localhost:3000/persons
+
+### Get Person by ID
+GET http://localhost:3000/persons/1
+
+### Create New Person
+POST http://localhost:3000/persons
+Content-Type: application/json
+
+{
+    "name": "Bob"
+}
+
+### Update Person
+PUT http://localhost:3000/persons/1
+Content-Type: application/json
+
+{
+    "name": "Bob Updated"
+}
+
+### Delete Person
+DELETE http://localhost:3000/persons/1
