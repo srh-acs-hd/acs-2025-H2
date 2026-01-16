@@ -7,7 +7,7 @@ const run = (x) => {
     let c = a + b
     console.log(`The sum of a and b is: ${c}`)
 
-    //console.log(`App with name ${x} is running`)
+    console.log(`App with name ${x} is running`)
 }
 
-run(true)
+run('test application')

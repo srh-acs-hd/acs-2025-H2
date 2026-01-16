@@ -2,7 +2,7 @@
 GET http://localhost:3000/
 
 ### greet
-POST https://nodeexamples-dot-pt-srh-dev.ey.r.appspot.com//greet
+POST https://nodeexamples-dot-pt-srh-dev.ey.r.appspot.com/greet
 Content-Type: application/json
 
 {
