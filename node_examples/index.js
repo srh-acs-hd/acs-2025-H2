@@ -1,8 +1,16 @@
+// import the Firestore library
+const { Firestore } = require('@google-cloud/firestore')
+// create a new Firestore client
+const firestore = new Firestore(  {
+    projectId: 'pt-srh-dev',
+    databaseId: 'pt-srh-dev' }) 
+// Databse pt-srh-dev
+
 // import express library
 const express = require('express')
 // define your express web app (app)
 const app = express()
-app.use(express.json());
+app.use(express.json())
 
 // define the port
 const port = process.env.PORT || 3000
@@ -31,9 +39,13 @@ app.post('/greet', (req, res) => {
   res.send(`Hello ${name}, welcome to our server!`)
 })
 
-app.get('/persons', (req, res) => {
+app.get('/persons', async (req, res) => {
   console.log('GET all persons');
-  res.send('Retrieve all persons');
+  // read all persons from Firestore
+  const personsCollection = firestore.collection('persons');
+  const snapshot = await personsCollection.get();
+  const persons = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  res.send(persons );
 });
 
 app.get('/persons/:id', (req, res) => {
@@ -41,9 +53,17 @@ app.get('/persons/:id', (req, res) => {
   res.send(`Retrieve person with id: ${req.params.id}`);
 });
 
-app.post('/persons', (req, res) => {
+app.post('/persons', async (req, res) => {
   console.log('POST new person:', req.body);
-  res.send('Create a new person');
+  // store the new person in Firestore
+  const personsCollection = firestore.collection('persons');
+  try {
+    const docRef = await personsCollection.add(req.body);
+    res.send(`Person created with ID: ${docRef.id}`);
+  } catch (error) {
+    console.error('Error adding person: ', error);
+    res.status(500).send('Error creating person');
+  }
 });
 
 app.put('/persons/:id', (req, res) => {
