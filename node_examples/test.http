@@ -34,6 +34,16 @@ Content-Type: application/json
     "lastName": "Cooper"
 }
 
+### Create New Person
+POST http://localhost:3000/persons
+Content-Type: application/json
+
+{
+    "firstName": "Frank",
+    "lastName": "Zappa",
+    "age": 65
+}
+
 ### Update Person
 PUT http://localhost:3000/persons/1
 Content-Type: application/json

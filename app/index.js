@@ -7,18 +7,14 @@ const { Translate } = require('@google-cloud/translate').v2
 
 
 // big query api
-const { BigQuery } = require('@google-cloud/bigquery');
+const { BigQuery } = require('@google-cloud/bigquery')
 
-// Vertex AI and it's configuration
-const {
-  HarmBlockThreshold,
-  HarmCategory,
-  VertexAI
-} = require('@google-cloud/vertexai')
+// generative ai api
+const {GoogleGenAI} = require('@google/genai')
+
 const project = 'pt-srh-dev'
-const location = 'europe-west3'
+const location = 'global'
 const textModel =  'gemini-2.5-flash-lite'
-const vertexAI = new VertexAI({project: project, location: location})
 
 
 // use winston as logger
@@ -97,29 +93,21 @@ app.get('/test/logerror', async (req, res) => {
 app.post('/api/gemini', async (req, res) => {
   // get the prompt from the frontend request
   const prompt = req.body.prompt
-
-  // define the generative model and pass the textModel
-  const generativeModel = vertexAI.getGenerativeModel({
-    model: textModel,
-    // The following parameters are optional
-    safetySettings: [{category: HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT, threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE}],
-    generationConfig: {maxOutputTokens: 2048},
-    systemInstruction: {
-      role: 'system',
-      parts: [{"text": `You are a helpful and creative chatbot.`}]
-    }
+  // initialize the generative ai client
+  const client = new GoogleGenAI({
+    vertexai: true,
+    project: project,
+    location: location,
   })
-  // define the aiRequest, which will be send to the generative model
-  const aiRequest = {
-    contents: [{role: 'user', parts: [{text: prompt}]}]
-  }
-
+  // prompt the llm
+  const aiResponse = await client.models.generateContent({
+    model: textModel,
+    contents: prompt
+  });
   // generate the content (aiResponse) with the generative model
-  const aiResponse = await generativeModel.generateContent(aiRequest) 
   let aiAnswer = ''
   // combine the text answers (parts) to a single string (aiAnswer)
-  aiResponse.response.candidates[0].content.parts.forEach((part) => aiAnswer += part.text)
-  console.log(aiResponse)
+  aiResponse.candidates[0].content.parts.forEach((part) => aiAnswer += part.text)
   console.log(aiAnswer)
   // send the prompt and the aiAnswer back to the frontend
   res.send({prompt: prompt, answer: aiAnswer})
